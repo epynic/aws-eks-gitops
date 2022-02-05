@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  vote:
+    build: ./application/vote
+    command: python app.py
+    volumes:
+     - ./application/vote:/app
+    ports:
+      - "5000:80"
+    
+  result:
+    build: ./application/result
+    command: nodemon server.js
+    volumes:
+      - ./application/result:/app
+    ports:
+      - "5001:80"
+      - "5858:5858"
+
+  worker:
+    build: ./application/worker
+
+  redis:
+    build: ./application/redis
+    ports: ["6379"]
+  
+  db:
+    build: ./application/db
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+  
