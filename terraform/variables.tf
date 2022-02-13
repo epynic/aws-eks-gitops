@@ -12,4 +12,6 @@ variable "bucket_acl" {
 variable "repo_name" {}
 variable "repo_default_branch" {}
 
+variable "image_repo_name" {}
+
 variable "code_build_timeout" {}
