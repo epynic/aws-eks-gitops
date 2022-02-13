@@ -1,4 +1,3 @@
-# CodeCommit resources
 resource "aws_codecommit_repository" "prod_codecommit" {
   repository_name = var.repo_name
   description     = "${var.repo_name} repository."

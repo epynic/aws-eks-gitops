@@ -62,7 +62,7 @@ resource "aws_iam_role_policy_attachment" "codepipeline-attach" {
 
 # CodePipeline 
 resource "aws_codepipeline" "pipeline" {
-  
+
   depends_on = [
     aws_codecommit_repository.prod_codecommit
   ]
@@ -72,7 +72,7 @@ resource "aws_codepipeline" "pipeline" {
     Environment = var.infra_env
   }
 
-  name     = "${var.infra_name}"
+  name     = var.infra_name
   role_arn = aws_iam_role.codepipeline_role.arn
   artifact_store {
     location = aws_s3_bucket.prod_artifact_bucket.bucket
