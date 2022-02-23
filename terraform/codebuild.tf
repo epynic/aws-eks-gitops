@@ -43,7 +43,12 @@ resource "aws_iam_policy" "codebuild_policy" {
       "Action": [
         "ecr:GetDownloadUrlForLayer",
         "ecr:BatchGetImage",
-        "ecr:BatchCheckLayerAvailability"
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:BatchGetImage",
+        "ecr:InitiateLayerUpload",
+        "ecr:UploadLayerPart",
+        "ecr:CompleteLayerUpload",
+        "ecr:PutImage"
       ],
       "Effect": "Allow",
       "Resource": "${aws_ecr_repository.image_db.arn}"
@@ -52,7 +57,12 @@ resource "aws_iam_policy" "codebuild_policy" {
       "Action": [
         "ecr:GetDownloadUrlForLayer",
         "ecr:BatchGetImage",
-        "ecr:BatchCheckLayerAvailability"
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:BatchGetImage",
+        "ecr:InitiateLayerUpload",
+        "ecr:UploadLayerPart",
+        "ecr:CompleteLayerUpload",
+        "ecr:PutImage"
       ],
       "Effect": "Allow",
       "Resource": "${aws_ecr_repository.image_redis.arn}"
@@ -61,7 +71,12 @@ resource "aws_iam_policy" "codebuild_policy" {
       "Action": [
         "ecr:GetDownloadUrlForLayer",
         "ecr:BatchGetImage",
-        "ecr:BatchCheckLayerAvailability"
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:BatchGetImage",
+        "ecr:InitiateLayerUpload",
+        "ecr:UploadLayerPart",
+        "ecr:CompleteLayerUpload",
+        "ecr:PutImage"
       ],
       "Effect": "Allow",
       "Resource": "${aws_ecr_repository.image_worker.arn}"
@@ -70,7 +85,12 @@ resource "aws_iam_policy" "codebuild_policy" {
       "Action": [
         "ecr:GetDownloadUrlForLayer",
         "ecr:BatchGetImage",
-        "ecr:BatchCheckLayerAvailability"
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:BatchGetImage",
+        "ecr:InitiateLayerUpload",
+        "ecr:UploadLayerPart",
+        "ecr:CompleteLayerUpload",
+        "ecr:PutImage"
       ],
       "Effect": "Allow",
       "Resource": "${aws_ecr_repository.image_result.arn}"
@@ -79,7 +99,12 @@ resource "aws_iam_policy" "codebuild_policy" {
       "Action": [
         "ecr:GetDownloadUrlForLayer",
         "ecr:BatchGetImage",
-        "ecr:BatchCheckLayerAvailability"
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:BatchGetImage",
+        "ecr:InitiateLayerUpload",
+        "ecr:UploadLayerPart",
+        "ecr:CompleteLayerUpload",
+        "ecr:PutImage"
       ],
       "Effect": "Allow",
       "Resource": "${aws_ecr_repository.image_vote.arn}"
@@ -165,7 +190,7 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - IMAGE_TAG=$(CODEBUILD_BUILD_NUMBER)         
+      - IMAGE_TAG=$CODEBUILD_BUILD_NUMBER        
   build:
     commands:
       - print '------------------------------------'
@@ -195,28 +220,36 @@ phases:
       - print '------------------------------------'
       - echo Building the worker image...
       - cd ../..
-      - cd application/worket
+      - cd application/worker
       - docker build -t $ECR_WORKER_URI:latest .
       - docker tag $ECR_WORKER_URI:latest $ECR_WORKER_URI:$IMAGE_TAG
       - print '------------------------------------'
+      - docker image ls
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker db image...
       - docker push $ECR_DB_URI:latest
       - docker push $ECR_DB_URI:$IMAGE_TAG
+      - print '------------------------------------'
       - echo Pushing the Docker redis image...
       - docker push $ECR_REDIS_URI:latest
       - docker push $ECR_REDIS_URI:$IMAGE_TAG
+      - print '------------------------------------'
       - echo Pushing the Docker vote image...
-      - docker push $ECR_vote_URI:latest
-      - docker push $ECR_vote_URI:$IMAGE_TAG
+      - docker push $ECR_VOTE_URI:latest
+      - docker push $ECR_VOTE_URI:$IMAGE_TAG
+      - print '------------------------------------'
       - echo Pushing the Docker result image...
       - docker push $ECR_RESULT_URI:latest
       - docker push $ECR_RESULT_URI:$IMAGE_TAG
+      - print '------------------------------------'
       - echo Pushing the Docker worker image...
       - docker push $ECR_WORKER_URI:latest
       - docker push $ECR_WORKER_URI:$IMAGE_TAG
+      - print '------------------------------------'
+      - echo Update k8s manifest files...
+      - ls
 BUILDSPEC
   }
 

@@ -64,7 +64,12 @@ resource "aws_iam_role_policy_attachment" "codepipeline-attach" {
 resource "aws_codepipeline" "pipeline" {
 
   depends_on = [
-    aws_codecommit_repository.prod_codecommit
+    aws_codecommit_repository.prod_codecommit,
+    aws_ecr_repository.image_db,
+    aws_ecr_repository.image_worker,
+    aws_ecr_repository.image_redis,
+    aws_ecr_repository.image_result,
+    aws_ecr_repository.image_vote
   ]
 
   tags = {
