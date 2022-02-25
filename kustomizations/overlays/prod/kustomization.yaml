@@ -3,4 +3,4 @@ bases:
 images:
   - name: nginx
     newName: nginx
-    newTag: latest
+    newTag: 1.21.6

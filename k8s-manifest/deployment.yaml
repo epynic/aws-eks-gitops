@@ -15,7 +15,7 @@ spec:
         role: express-api
     spec:
       containers:
-      - image: nginx:latest
+      - image: nginx:1.21.6
         name: express-api
         ports:
         - containerPort: 80
