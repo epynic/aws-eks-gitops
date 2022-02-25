@@ -190,7 +190,15 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - IMAGE_TAG=$CODEBUILD_BUILD_NUMBER        
+      - IMAGE_TAG=$CODEBUILD_BUILD_NUMBER
+      - echo "Install kustomize..."
+      - curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+      - mv ./kustomize /usr/bin/kustomize && chmod +x /usr/bin/kustomize
+      - kustomize version
+      - echo "Installing yq..."      
+      - sudo snap install yq
+      - yq --version
+      - echo "Pre build complete..."
   build:
     commands:
       - print '------------------------------------'
