@@ -108,6 +108,18 @@ resource "aws_iam_policy" "codebuild_policy" {
       ],
       "Effect": "Allow",
       "Resource": "${aws_ecr_repository.image_vote.arn}"
+    },
+    {
+      "Action" : [
+        "codecommit:CancelUploadArchive",
+        "codecommit:GetBranch",
+        "codecommit:GetCommit",
+        "codecommit:GitPull",
+        "codecommit:GetUploadArchiveStatus",
+        "codecommit:UploadArchive"
+      ],
+      "Effect": "Allow",
+      "Resource": "${aws_codecommit_repository.prod_codecommit.arn}"
     }
   ]
 }
@@ -186,22 +198,26 @@ phases:
   install:
     runtime-versions:
       docker: 19
+    commands:
+      - git config --global credential.helper '!aws codecommit credential-helper $@'
+      - git config --global credential.UseHttpPath true
   pre_build:
     commands:
-      - echo Logging in to Amazon ECR...
-      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - IMAGE_TAG=$CODEBUILD_BUILD_NUMBER
       - echo "Install kustomize..."
       - curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
       - mv ./kustomize /usr/bin/kustomize && chmod +x /usr/bin/kustomize
       - kustomize version
-      - echo "Installing yq..."      
-      - sudo snap install yq
+      - echo "Install yq..."      
+      - wget https://github.com/mikefarah/yq/releases/download/v4.12.0/yq_linux_amd64 -O /usr/bin/yq && chmod +x /usr/bin/yq
       - yq --version
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - echo "Pre build complete..."
   build:
     commands:
       - print '------------------------------------'
+      - exit 0
       - echo Build started on `date`
       - echo Building the db image...
       - cd application/db
@@ -256,8 +272,18 @@ phases:
       - docker push $ECR_WORKER_URI:latest
       - docker push $ECR_WORKER_URI:$IMAGE_TAG
       - print '------------------------------------'
+      - cd ../..
       - echo Update k8s manifest files...
-      - ls
+      - mkdir -p /tmp/project-cicd
+      - cd /tmp/project-cicd
+      - echo "Clone the repository..."
+      - git clone "https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/vote-gitops" /tmp/project-cicd 
+      - yq e '.images[0].newTag = "1.21.6"' -i kustomizations/overlays/prod/kustomization.yaml
+      - kustomize build kustomizations/overlays/prod > k8s-manifest/deployment.yaml
+      - cat k8s-manifest/deployment.yaml
+      - git commit --allow-empty -am "Automatic commit CodeBuild:$CODEBUILD_BUILD_NUMBER"
+      - git push origin master
+      - echo "Complete..."
 BUILDSPEC
   }
 

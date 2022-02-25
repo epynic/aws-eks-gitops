@@ -1,0 +1,6 @@
+bases:
+  - ../../base
+images:
+  - name: nginx
+    newName: nginx
+    newTag: latest

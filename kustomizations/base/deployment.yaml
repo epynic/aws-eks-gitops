@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: express-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: express-api
+      role: express-api
+  template:
+    metadata:
+      labels:
+        app: express-api
+        role: express-api
+    spec:
+      containers:
+      - name: express-api
+        image: nginx
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
