@@ -111,12 +111,7 @@ resource "aws_iam_policy" "codebuild_policy" {
     },
     {
       "Action" : [
-        "codecommit:CancelUploadArchive",
-        "codecommit:GetBranch",
-        "codecommit:GetCommit",
-        "codecommit:GitPull",
-        "codecommit:GetUploadArchiveStatus",
-        "codecommit:UploadArchive"
+        "codecommit:*"
       ],
       "Effect": "Allow",
       "Resource": "${aws_codecommit_repository.prod_codecommit.arn}"
@@ -188,6 +183,10 @@ resource "aws_codebuild_project" "prod_codebuild" {
       name  = "AWS_DEFAULT_REGION"
       value = var.aws_region
     }
+    environment_variable {
+      name  = "CODECOMMIT_REPO_NAME"
+      value = var.repo_name
+    }
   }
 
   source {
@@ -213,11 +212,12 @@ phases:
       - yq --version
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - git config --global user.email "codeforcookie@gmail.com"
+      - git config --global user.name "Prasanha Kumar"
       - echo "Pre build complete..."
   build:
     commands:
       - print '------------------------------------'
-      - exit 0
       - echo Build started on `date`
       - echo Building the db image...
       - cd application/db
@@ -277,11 +277,11 @@ phases:
       - mkdir -p /tmp/project-cicd
       - cd /tmp/project-cicd
       - echo "Clone the repository..."
-      - git clone "https://git-codecommit.ap-south-1.amazonaws.com/v1/repos/vote-gitops" /tmp/project-cicd 
-      - yq e '.images[0].newTag = "1.21.6"' -i kustomizations/overlays/prod/kustomization.yaml
+      - git clone "https://git-codecommit.$AWS_DEFAULT_REGION.amazonaws.com/v1/repos/$CODECOMMIT_REPO_NAME" /tmp/project-cicd 
+      - yq e '.images[0].newTag = "$IMAGE_TAG"' -i kustomizations/overlays/prod/kustomization.yaml
       - kustomize build kustomizations/overlays/prod > k8s-manifest/deployment.yaml
       - cat k8s-manifest/deployment.yaml
-      - git commit --allow-empty -am "Automatic commit CodeBuild:$CODEBUILD_BUILD_NUMBER"
+      - git commit --allow-empty -am "CodeBuild:$CODEBUILD_BUILD_NUMBER Automatic commit"
       - git push origin master
       - echo "Complete..."
 BUILDSPEC

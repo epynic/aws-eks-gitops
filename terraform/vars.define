@@ -1,0 +1,12 @@
+aws_region     = "ap-south-1"
+aws_access_key = "***************"
+aws_secret_key = "********************"
+
+infra_env  = "prod"
+infra_name = "vote-gitops-ci-cd"
+
+repo_name           = "vote-gitops-ci-cd"
+repo_default_branch = "master"
+
+code_build_timeout = "10"
+image_repo_name = "vote-gitops-ci-cd"
