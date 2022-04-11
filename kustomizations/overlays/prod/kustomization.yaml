@@ -3,16 +3,16 @@ bases:
 images:
   - name: db-image
     newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-db
-    newTag: "IMAGE_TAG"
+    newTag: "6"
   - name: redis-image
     newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-redis
-    newTag: IMAGE_TAG
+    newTag: "6"
   - name: result-image
     newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-result
-    newTag: latest
+    newTag: "6"
   - name: vote-image
     newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-vote
-    newTag: latest
+    newTag: "6"
   - name: worker-image
     newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-worker
-    newTag: latest
+    newTag: "6"

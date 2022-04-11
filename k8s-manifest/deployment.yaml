@@ -195,5 +195,5 @@ spec:
         app: worker
     spec:
       containers:
-      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-worker:latest
+      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-worker:6
         name: worker
