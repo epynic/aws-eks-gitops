@@ -1,4 +1,9 @@
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: vote
+---
+apiVersion: v1
 kind: Service
 metadata:
   labels:
@@ -38,14 +43,21 @@ metadata:
   name: result
   namespace: vote
 spec:
+  # ports:
+  # - name: result-service
+  #   nodePort: 31001
+  #   port: 5001
+  #   targetPort: 80
+  # selector:
+  #   app: result
+  # type: NodePort
+  type: LoadBalancer
   ports:
   - name: result-service
-    nodePort: 31001
-    port: 5001
+    port: 80
     targetPort: 80
   selector:
     app: result
-  type: NodePort
 ---
 apiVersion: v1
 kind: Service
@@ -55,14 +67,21 @@ metadata:
   name: vote
   namespace: vote
 spec:
+  # ports:
+  # - name: vote-service
+  #   nodePort: 31000
+  #   port: 5000
+  #   targetPort: 80
+  # selector:
+  #   app: vote
+  # type: NodePort
+  type: LoadBalancer
   ports:
   - name: vote-service
-    nodePort: 31000
-    port: 5000
+    port: 80
     targetPort: 80
   selector:
     app: vote
-  type: NodePort
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -87,7 +106,7 @@ spec:
           value: postgres
         - name: POSTGRES_PASSWORD
           value: postgres
-        image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-db:7
+        image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-ci-cd-db:7
         name: postgres
         ports:
         - containerPort: 5432
@@ -117,7 +136,7 @@ spec:
         app: redis
     spec:
       containers:
-      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-redis:7
+      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-ci-cd-redis:7
         name: redis
         ports:
         - containerPort: 6379
@@ -147,7 +166,7 @@ spec:
         app: result
     spec:
       containers:
-      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-result:7
+      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-ci-cd-result:7
         name: result
         ports:
         - containerPort: 80
@@ -171,7 +190,7 @@ spec:
         app: vote
     spec:
       containers:
-      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-vote:7
+      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-ci-cd-vote:7
         name: vote
         ports:
         - containerPort: 80
@@ -195,5 +214,5 @@ spec:
         app: worker
     spec:
       containers:
-      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-worker:7
+      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-ci-cd-worker:7
         name: worker
