@@ -1,7 +1,18 @@
 bases:
   - ../../base
-
 images:
-  - name: nginx
-    newName: nginx
-    newTag: 1.21.6
+  - name: db-image
+    newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-db
+    newTag: "IMAGE_TAG"
+  - name: redis-image
+    newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-redis
+    newTag: IMAGE_TAG
+  - name: result-image
+    newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-result
+    newTag: latest
+  - name: vote-image
+    newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-vote
+    newTag: latest
+  - name: worker-image
+    newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-worker
+    newTag: latest

@@ -278,7 +278,11 @@ phases:
       - cd /tmp/project-cicd
       - echo "Clone the repository..."
       - git clone "https://git-codecommit.$AWS_DEFAULT_REGION.amazonaws.com/v1/repos/$CODECOMMIT_REPO_NAME" /tmp/project-cicd 
-      - yq e '.images[0].newTag = "$IMAGE_TAG"' -i kustomizations/overlays/prod/kustomization.yaml
+      - yq e '.images[0].newTag = "'"$IMAGE_TAG"'"' -i kustomizations/overlays/prod/kustomization.yaml
+      - yq e '.images[1].newTag = "'"$IMAGE_TAG"'"' -i kustomizations/overlays/prod/kustomization.yaml
+      - yq e '.images[2].newTag = "'"$IMAGE_TAG"'"' -i kustomizations/overlays/prod/kustomization.yaml
+      - yq e '.images[3].newTag = "'"$IMAGE_TAG"'"' -i kustomizations/overlays/prod/kustomization.yaml
+      - yq e '.images[4].newTag = "'"$IMAGE_TAG"'"' -i kustomizations/overlays/prod/kustomization.yaml
       - kustomize build kustomizations/overlays/prod > k8s-manifest/deployment.yaml
       - cat k8s-manifest/deployment.yaml
       - git commit --allow-empty -am "CodeBuild:$CODEBUILD_BUILD_NUMBER Automatic commit"
