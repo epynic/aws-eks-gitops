@@ -87,7 +87,7 @@ spec:
           value: postgres
         - name: POSTGRES_PASSWORD
           value: postgres
-        image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-db:latest
+        image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-db:7
         name: postgres
         ports:
         - containerPort: 5432
@@ -117,7 +117,7 @@ spec:
         app: redis
     spec:
       containers:
-      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-redis:latest
+      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-redis:7
         name: redis
         ports:
         - containerPort: 6379
@@ -147,7 +147,7 @@ spec:
         app: result
     spec:
       containers:
-      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-result:latest
+      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-result:7
         name: result
         ports:
         - containerPort: 80
@@ -171,7 +171,7 @@ spec:
         app: vote
     spec:
       containers:
-      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-vote:latest
+      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-vote:7
         name: vote
         ports:
         - containerPort: 80
@@ -195,5 +195,5 @@ spec:
         app: worker
     spec:
       containers:
-      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-worker:6
+      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-worker:7
         name: worker
