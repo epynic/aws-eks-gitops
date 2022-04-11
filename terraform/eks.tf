@@ -75,7 +75,7 @@ resource "aws_eks_node_group" "main" {
 
   ami_type       = "AL2_x86_64"
   disk_size      = "10"
-  instance_types = ["t3.micro"]
+  instance_types = ["t3.small"]
 
   scaling_config {
     desired_size = 2

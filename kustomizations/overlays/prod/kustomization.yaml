@@ -2,17 +2,17 @@ bases:
   - ../../base
 images:
   - name: db-image
-    newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-db
+    newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-ci-cd-db
     newTag: "7"
   - name: redis-image
-    newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-redis
+    newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-ci-cd-redis
     newTag: "7"
   - name: result-image
-    newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-result
+    newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-ci-cd-result
     newTag: "7"
   - name: vote-image
-    newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-vote
+    newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-ci-cd-vote
     newTag: "7"
   - name: worker-image
-    newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-worker
+    newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-ci-cd-worker
     newTag: "7"

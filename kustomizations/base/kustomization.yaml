@@ -4,6 +4,7 @@ resources:
   - result.yaml
   - vote.yaml
   - worker.yaml
+  - namespace.yaml
 # images:
 #   - name: db-image
 #     newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-db
