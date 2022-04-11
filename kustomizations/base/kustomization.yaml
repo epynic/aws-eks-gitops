@@ -4,19 +4,19 @@ resources:
   - result.yaml
   - vote.yaml
   - worker.yaml
-images:
-  - name: db-image
-    newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-db
-    newTag: latest
-  - name: redis-image
-    newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-redis
-    newTag: latest
-  - name: result-image
-    newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-result
-    newTag: latest
-  - name: vote-image
-    newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-vote
-    newTag: latest
-  - name: redis-worker
-    newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-worker
-    newTag: latest
+# images:
+#   - name: db-image
+#     newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-db
+#     newTag: latest
+#   - name: redis-image
+#     newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-redis
+#     newTag: latest
+#   - name: result-image
+#     newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-result
+#     newTag: latest
+#   - name: vote-image
+#     newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-vote
+#     newTag: latest
+#   - name: redis-worker
+#     newName: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-worker
+#     newTag: latest
