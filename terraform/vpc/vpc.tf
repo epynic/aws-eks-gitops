@@ -6,9 +6,9 @@ resource "aws_vpc" "custom_vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    Name                                            = "${var.vpc_name}"
-    "kubernetes.io/cluster/${var.eks_cluster_name}" = "shared"
+    Name = "${var.vpc_name}-vpc"
   }
+
 }
 
 # Create the private subnet
@@ -18,11 +18,16 @@ resource "aws_subnet" "private_subnet" {
   cidr_block        = element(var.private_subnet_cidr_blocks, count.index)
   availability_zone = element(var.availability_zones, count.index)
 
-  tags = {
-    Name                                            = "${var.eks_cluster_name}-private-subnet"
-    "kubernetes.io/cluster/${var.eks_cluster_name}" = "shared"
-    "kubernetes.io/role/internal-elb"               = 1
-  }
+  tags = merge(
+    var.vpc_tags,
+    {
+      Name = "${var.vpc_name}-private-subnet"
+    },
+    {
+      "kubernetes.io/role/internal-elb" = 1
+    }
+  )
+
 }
 
 # Create the public subnet
@@ -32,11 +37,16 @@ resource "aws_subnet" "public_subnet" {
   cidr_block        = element(var.public_subnet_cidr_blocks, count.index)
   availability_zone = element(var.availability_zones, count.index)
 
-  tags = {
-    Name                                            = "${var.eks_cluster_name}-public-subnet"
-    "kubernetes.io/cluster/${var.eks_cluster_name}" = "shared"
-    "kubernetes.io/role/elb"                        = 1
-  }
+  tags = merge(
+    var.vpc_tags,
+    {
+      Name = "${var.vpc_name}-public-subnet"
+    },
+    {
+      "kubernetes.io/role/elb" = 1
+    }
+  )
+
 
   map_public_ip_on_launch = true
 }
@@ -46,7 +56,7 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.custom_vpc.id
 
   tags = {
-    Name = "${var.eks_cluster_name}-igw"
+    Name = "${var.vpc_name}-igw"
   }
 }
 
@@ -60,7 +70,7 @@ resource "aws_route_table" "main" {
   }
 
   tags = {
-    Name = "${var.eks_cluster_name}-route-table"
+    Name = "${var.vpc_name}-route-table"
   }
 }
 

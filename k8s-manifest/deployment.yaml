@@ -43,21 +43,21 @@ metadata:
   name: result
   namespace: vote
 spec:
-  # ports:
-  # - name: result-service
-  #   nodePort: 31001
-  #   port: 5001
-  #   targetPort: 80
-  # selector:
-  #   app: result
-  # type: NodePort
-  type: LoadBalancer
   ports:
   - name: result-service
-    port: 80
+    nodePort: 31001
+    port: 5001
     targetPort: 80
   selector:
     app: result
+  type: NodePort
+  # type: LoadBalancer
+  # ports:
+  # - name: result-service
+  #   port: 80
+  #   targetPort: 80
+  # selector:
+  #   app: result
 ---
 apiVersion: v1
 kind: Service
@@ -67,21 +67,21 @@ metadata:
   name: vote
   namespace: vote
 spec:
-  # ports:
-  # - name: vote-service
-  #   nodePort: 31000
-  #   port: 5000
-  #   targetPort: 80
-  # selector:
-  #   app: vote
-  # type: NodePort
-  type: LoadBalancer
   ports:
   - name: vote-service
-    port: 80
+    nodePort: 31000
+    port: 5000
     targetPort: 80
   selector:
     app: vote
+  type: NodePort
+  # type: LoadBalancer
+  # ports:
+  # - name: vote-service
+  #   port: 80
+  #   targetPort: 80
+  # selector:
+  #   app: vote
 ---
 apiVersion: apps/v1
 kind: Deployment

@@ -1,14 +1,20 @@
 
-variable "eks_cluster_name" {
-  default     = "eks-cluster"
-  description = "The name of the EKS cluster"
-  type        = string
-}
+# variable "eks_cluster_name" {
+#   default     = "eks-cluster"
+#   description = "The name of the EKS cluster"
+#   type        = string
+# }
 
 variable "vpc_name" {
   type        = string
   default     = "vpc"
   description = "Name of the VPC"
+}
+
+variable "vpc_tags" {
+  type        = map(any)
+  default     = {}
+  description = "Tags for the VPC include cluster names to provision ALBs"
 }
 
 variable "vpc_cidr_block" {

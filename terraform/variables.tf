@@ -15,3 +15,5 @@ variable "repo_default_branch" {}
 variable "image_repo_name" {}
 
 variable "code_build_timeout" {}
+
+variable "domain" {}

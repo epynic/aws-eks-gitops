@@ -48,3 +48,8 @@ variable "pblc_min_size" {
   default     = 1
   type        = number
 }
+
+variable vpc_id {
+  description = "VPC ID from which belogs the subnets"
+  type        = string
+}

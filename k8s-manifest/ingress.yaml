@@ -1,0 +1,41 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: vote
+  name: simple-ingress
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: instance
+    # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-south-1:010621237612:certificate/186ea6d4-32ed-4b37-8f10-1299409370b4
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    #', {"HTTPS":443}]'
+    #alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+    #service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
+spec:
+  defaultBackend:
+    service:
+      name: vote
+      port:
+        number: 5000
+  rules:
+    - host: vote.xops.in
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: vote
+                port:
+                  number: 5000
+    - host: result.xops.in
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: result
+                port:
+                  number: 5001
