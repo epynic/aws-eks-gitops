@@ -1,4 +1,4 @@
-# GitOps way to k8s and application delivery Example app.
+# GitOps way to k8s and application delivery
  
 A practical GitOps CI/CD with declarative descriptions of the infrastructure and automated process to handle deployments.
 
@@ -21,17 +21,16 @@ kubectl
 
 ```
 .
-├── application         # docker-example-vote app
+├── application         # docker-example-vote app 
 │   ├── db
 │   ├── redis
 │   ├── result
 │   ├── vote
 │   └── worker
 ├── docker-compose.yaml 
-├── ingress-controller
-├── k8s-manifest
-│   ├── deployment.yaml
-├── kustomizations
+├── ingress-controller # ingress controller setup
+├── k8s-manifest       # manifest files output from kustomizations
+├── kustomizations     # kustomizations base template
 ├── terraform
 │   ├── codebuild.tf
 │   ├── codecommit.tf
@@ -82,7 +81,7 @@ Follow the AWS guild to complete the ingress-controller installation.
 
 https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html
 
-Note: This is AWS account specific update the required variables according to the guide.
+Note: This are AWS account specific, update the required variables according to the guide mentioned.
 
 ```
 aws iam create-policy \
