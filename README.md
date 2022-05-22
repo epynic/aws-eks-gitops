@@ -11,10 +11,10 @@ Resources :
 (https://www.weave.works/technologies/gitops/)
 
 ## Prerequisites
-*AWS account
-*AWS profile configured with CLI. ( try https://github.com/epynic/aws-terraform-ec2-instance to provision a jump-server)
-*Terraform
-*kubectl
+* AWS account
+* AWS profile configured with CLI. ( try https://github.com/epynic/aws-terraform-ec2-instance to provision a jump-server)
+* Terraform
+* kubectl
 
 
 ### Project/File Structure
