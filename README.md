@@ -4,6 +4,12 @@ A practical GitOps CI/CD with declarative descriptions of the infrastructure and
 
 This project uses the the docker-vote example app. (https://github.com/dockersamples/example-voting-app) wrapped to run on k8s cluster.
 
+# Why this project ?
+Has a complete CI/CD demo and setting up Ingress Controller in AWS and pointing domain with SSL terminations to exposed service.
+
+## Demo
+https://youtu.be/ZVNFWi1pxAs
+
 Resources :
 ` aws-codebuild, aws-codecommit, aws-codepipeline, terraform, aws-eks, argo-cd, kustomize. `
 
