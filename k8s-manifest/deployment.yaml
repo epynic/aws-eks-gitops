@@ -106,7 +106,11 @@ spec:
           value: postgres
         - name: POSTGRES_PASSWORD
           value: postgres
+<<<<<<< HEAD
         image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-ci-cd-db:7
+=======
+        image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-ci-cd-db:9
+>>>>>>> 3cd5ac19c78d7a01a7c3ba526e269b9aa729d2fb
         name: postgres
         ports:
         - containerPort: 5432
@@ -136,7 +140,11 @@ spec:
         app: redis
     spec:
       containers:
+<<<<<<< HEAD
       - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-ci-cd-redis:7
+=======
+      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-ci-cd-redis:9
+>>>>>>> 3cd5ac19c78d7a01a7c3ba526e269b9aa729d2fb
         name: redis
         ports:
         - containerPort: 6379
@@ -166,7 +174,11 @@ spec:
         app: result
     spec:
       containers:
+<<<<<<< HEAD
       - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-ci-cd-result:7
+=======
+      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-ci-cd-result:9
+>>>>>>> 3cd5ac19c78d7a01a7c3ba526e269b9aa729d2fb
         name: result
         ports:
         - containerPort: 80
@@ -190,7 +202,11 @@ spec:
         app: vote
     spec:
       containers:
+<<<<<<< HEAD
       - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-ci-cd-vote:7
+=======
+      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-ci-cd-vote:9
+>>>>>>> 3cd5ac19c78d7a01a7c3ba526e269b9aa729d2fb
         name: vote
         ports:
         - containerPort: 80
@@ -214,5 +230,9 @@ spec:
         app: worker
     spec:
       containers:
+<<<<<<< HEAD
       - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-ci-cd-worker:7
+=======
+      - image: 010621237612.dkr.ecr.ap-south-1.amazonaws.com/vote-gitops-ci-cd-worker:9
+>>>>>>> 3cd5ac19c78d7a01a7c3ba526e269b9aa729d2fb
         name: worker
